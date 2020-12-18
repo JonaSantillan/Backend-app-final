@@ -26,7 +26,7 @@ app.use(cors())
 
 app.use('/', rutas)
 
-app.listen(4000, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log("server running")
 })
 
