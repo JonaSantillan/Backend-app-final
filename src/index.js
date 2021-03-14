@@ -11,7 +11,8 @@ mongoose.connect(
   
   { 
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }
 )
   .then(() => {
