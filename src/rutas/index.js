@@ -8,30 +8,26 @@ router.use('/', (res, req) => req.send("server running"))
 
 router.route('/productos')
   .get((req, res) => {
-      ProductoSchema.find().then((productos) => {
-        res.status(200).send(productos);
+      ProductoSchema.find().then((usuarios) => {
+        res.status(200).send(usuarios);
       }).catch((error) => {
         res.status(400).send(error);
       });
   })
   .post((req, res) => {
-    if (!req.body.nombre || typeof req.body.nombre !== 'string') {
+    if (!req.body.name || typeof req.body.name !== 'string') {
       return res.status(400).send({message: 'Nombre invalido'});
     }
-    if (typeof req.body.descripcion !== 'string') {
-      return res.status(400).send({message: 'Descripción invalida'});
-    }
-    if (!req.body.precio || typeof req.body.precio !== 'number') {
-      return res.status(400).send({message: 'Precio invalido'});
+    if (typeof req.body.email !== 'string') {
+      return res.status(400).send({message: 'Email invalido'});
     }
 
-    const producto = new ProductoSchema( {
-      nombre: req.body.nombre,
-      descripcion: req.body.descripcion,
-      precio: req.body.precio
+    const usuario = new ProductoSchema( {
+      name: req.body.name,
+      email: req.body.email
     })
-    producto.save().then((productoNuevo) => {
-      res.status(201).send(productoNuevo);
+    usuario.save().then((usuarioNuevo) => {
+      res.status(201).send(usuarioNuevo);
     }).catch((error) => {
       res.status(400).send(error);
     });
@@ -40,25 +36,22 @@ router.route('/productos')
     if (!req.query.id || typeof req.query.id !== 'string') {
       return res.status(400).send({message: 'ID invalido'});
     }
-    if (!req.body.nombre || typeof req.body.nombre !== 'string') {
+    if (!req.body.name || typeof req.body.name !== 'string') {
       return res.status(400).send({message: 'Nombre invalido'});
     }
-    if (typeof req.body.descripcion !== 'string') {
-      return res.status(400).send({message: 'Descripción invalida'});
+    if (typeof req.body.email !== 'string') {
+      return res.status(400).send({message: 'Email invalido'});
     }
-    if (!req.body.precio || typeof req.body.precio !== 'number') {
-      return res.status(400).send({message: 'Precio invalido'});
-    }
+
     ProductoSchema.findByIdAndUpdate( 
       req.query.id,
-      {nombre: req.body.nombre,
-      descripcion: req.body.descripcion,
-      precio: req.body.precio}
-    ).then((productoEditado) => {
-      if (!productoEditado) {
-        return res.status(400).send({message: 'Precio invalido'});
+      {name: req.body.name,
+      email: req.body.email}
+    ).then((usuarioEditado) => {
+      if (!usuarioEditado) {
+        return res.status(400).send({message: 'invalido'});
       } else {
-        res.status(200).send(productoEditado);
+        res.status(200).send(usuarioEditado);
       }
     }).catch((error) => {
       res.status(400).send(error);
@@ -69,8 +62,8 @@ router.route('/productos')
     if (!req.query.id) {
       return res.status(400).send({message: 'ID invalido'});
     }
-    ProductoSchema.findOneAndDelete({_id: req.query.id}).then((productoEliminado) => {
-      res.status(200).send(productoEliminado);
+    ProductoSchema.findOneAndDelete({id: req.query.id}).then((usuarioEliminado) => {
+      res.status(200).send(usuarioEliminado);
     }).catch((error) => {
       res.status(400).send(error);
     });
