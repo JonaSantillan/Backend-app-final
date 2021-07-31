@@ -8,7 +8,6 @@ const app = express()
 
 mongoose.connect(
   'mongodb+srv://jonasantillan:test123@cluster0.xkbpf.mongodb.net/mcga?retryWrites=true&w=majority',
-  
   { 
     useNewUrlParser: true,
     useUnifiedTopology: true,
